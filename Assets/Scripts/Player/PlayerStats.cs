@@ -33,6 +33,7 @@ public class PlayerStats : MonoBehaviour
         Debug.Log("Player took " + damage + " damage. Current Health: " + currentHealth);
         if (currentHealth <= 0)
         {
+            currentHealth = 0;
             Die();
         }
     }
