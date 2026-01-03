@@ -50,4 +50,12 @@ public class PlayerStats : MonoBehaviour
     {
         return moveSpeed * speedMultiplier;
     }
+    public float GetDamageMultiplier()
+    {
+        return damageMultiplier;
+    }
+    public float GetFireRateMultiplier()
+    {
+        return fireRateMultiplier;
+    }
 }
