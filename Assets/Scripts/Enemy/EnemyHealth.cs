@@ -8,9 +8,14 @@ public class EnemyHealth : MonoBehaviour
     [Header("Death Settings")]
     private bool isDead = false;
 
+    private EnemyAnimator enemyAnimator;
+    private WaveManager waveManager;
+
     private void Start()
     {
+        waveManager = FindFirstObjectByType<WaveManager>();
         currentHealth = enemyData.maxHealth;
+        enemyAnimator = GetComponent<EnemyAnimator>();
     }
     public void TakeDamage(int damage)
     {
@@ -30,6 +35,7 @@ public class EnemyHealth : MonoBehaviour
         {
             collider.enabled = false;
         }
-        Destroy(gameObject, 2f);
+        waveManager.EnemyDied();
+        Destroy(gameObject, enemyAnimator.GetDeathAnimationLength());
     }
 }
