@@ -18,7 +18,7 @@ public class AutoShoot : MonoBehaviour
     }
     private void Update()
     {
-        if (Time.time >= nextFireTime)
+        if (Time.time >= nextFireTime && !playerStats.GetPlayerIsDead())
         {
             HandleShooting();
         }

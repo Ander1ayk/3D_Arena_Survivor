@@ -16,3 +16,5 @@ MonoBehaviour:
   moveSpeed: 5
   damage: 10
   attackCooldown: 1
+  manaReward: 5
+  coinReward: 15
