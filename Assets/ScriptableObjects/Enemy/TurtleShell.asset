@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5958cbab3fc3c0d40a6c3007e93ecd97, type: 3}
   m_Name: TurtleShell
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  maxHealth: 100
-  moveSpeed: 2
-  damage: 20
-  attackCooldown: 1.5
-  manaReward: 5
-  coinReward: 5
+  maxHealth: 45
+  moveSpeed: 0.8
+  damage: 7
+  attackCooldown: 2
+  manaReward: 6
+  coinReward: 4

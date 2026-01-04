@@ -39,7 +39,13 @@ public class EnemyHealth : MonoBehaviour
         if(isDead) return;
         isDead = true;
 
-        if(playerStats != null)
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector3.zero;
+        }
+
+        if (playerStats != null)
         {
             playerStats.RecoveryMana(enemyData.manaReward);
             playerStats.EarnMoney(enemyData.coinReward);
@@ -51,6 +57,11 @@ public class EnemyHealth : MonoBehaviour
             collider.enabled = false;
         }
         waveManager.EnemyDied();
+        enemyAnimator.PlayDeathAnimation();
         Destroy(gameObject, enemyAnimator.GetDeathAnimationLength());
+    }
+    public bool IsDead()
+    {
+        return isDead;
     }
 }

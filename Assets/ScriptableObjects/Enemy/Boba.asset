@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5958cbab3fc3c0d40a6c3007e93ecd97, type: 3}
   m_Name: Boba
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  maxHealth: 500
-  moveSpeed: 4
-  damage: 60
-  attackCooldown: 2
-  manaReward: 40
-  coinReward: 50
+  maxHealth: 750
+  moveSpeed: 2
+  damage: 22
+  attackCooldown: 0.9
+  manaReward: 50
+  coinReward: 100

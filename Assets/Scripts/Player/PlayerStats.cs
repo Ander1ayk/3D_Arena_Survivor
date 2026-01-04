@@ -4,15 +4,14 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     [Header("Health")]
-    [SerializeField] private int maxHealth = 100;
+    [SerializeField] private int maxHealth = 60;
     private int currentHealth;
     [Header("Mana")]
-    [SerializeField] private int maxMana = 50;
+    [SerializeField] private int maxMana = 60;
     private int currentMana;
-    private int healByMana;
     private float healRate = 1f;
     [Header("Movement")]
-    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float moveSpeed = 2.2f;
     [Header("Multiplier")]
     [SerializeField] private float damageMultiplier = 1.0f;
     [SerializeField] private float speedMultiplier = 1.0f;

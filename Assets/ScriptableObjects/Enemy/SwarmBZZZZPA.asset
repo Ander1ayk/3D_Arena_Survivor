@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5958cbab3fc3c0d40a6c3007e93ecd97, type: 3}
   m_Name: SwarmBZZZZPA
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  maxHealth: 45
-  moveSpeed: 6
-  damage: 9
-  attackCooldown: 0.5
-  manaReward: 5
-  coinReward: 15
+  maxHealth: 12
+  moveSpeed: 2.8
+  damage: 4
+  attackCooldown: 1
+  manaReward: 3
+  coinReward: 1

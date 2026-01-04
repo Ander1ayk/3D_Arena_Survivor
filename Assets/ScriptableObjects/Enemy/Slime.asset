@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Slime
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   maxHealth: 20
-  moveSpeed: 4
-  damage: 5
-  attackCooldown: 1
-  manaReward: 5
-  coinReward: 5
+  moveSpeed: 1.6
+  damage: 4
+  attackCooldown: 1.5
+  manaReward: 4
+  coinReward: 2

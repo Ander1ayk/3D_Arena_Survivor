@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5958cbab3fc3c0d40a6c3007e93ecd97, type: 3}
   m_Name: ChestMonster
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  maxHealth: 75
-  moveSpeed: 2.5
-  damage: 10
-  attackCooldown: 1.5
-  manaReward: 5
-  coinReward: 15
+  maxHealth: 60
+  moveSpeed: 1.2
+  damage: 14
+  attackCooldown: 1.8
+  manaReward: 12
+  coinReward: 12

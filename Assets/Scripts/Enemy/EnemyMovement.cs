@@ -9,6 +9,7 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private Transform target;
     PlayerStats playerStats;
     EnemyAnimator enemyAnimator;
+    private EnemyHealth enemyHealth;
     private void Start()
     {
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
@@ -17,11 +18,20 @@ public class EnemyMovement : MonoBehaviour
             target = playerObj.transform;
             playerStats = playerObj.GetComponent<PlayerStats>();
         }
+        enemyHealth = GetComponent<EnemyHealth>();
         rb = GetComponent<Rigidbody>();
         enemyAnimator = GetComponent<EnemyAnimator>();
     }
     private void FixedUpdate()
     {
+        if(enemyHealth != null && enemyHealth.IsDead())
+        {
+            if (rb != null)
+            {
+                rb.linearVelocity = Vector3.zero;
+                return;
+            }
+        }
         if (!target || playerStats == null) return;
 
         if (playerStats.GetPlayerIsDead())
