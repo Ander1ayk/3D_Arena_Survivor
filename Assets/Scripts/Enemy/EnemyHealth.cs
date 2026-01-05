@@ -14,21 +14,28 @@ public class EnemyHealth : MonoBehaviour
     private PlayerStats playerStats;
 
     public event Action<int, int> OnHealthChanged;
+    private int maxHealthScaled;
 
     private void Start()
     {
         waveManager = FindFirstObjectByType<WaveManager>();
         playerStats = FindAnyObjectByType<PlayerStats>();
-        currentHealth = enemyData.maxHealth;
         enemyAnimator = GetComponent<EnemyAnimator>();
-        OnHealthChanged?.Invoke(currentHealth,enemyData.maxHealth);
+
+        float multiplier = waveManager.GetDifficultyMultiplier();
+
+        maxHealthScaled = Mathf.RoundToInt(enemyData.maxHealth * multiplier);
+        currentHealth = maxHealthScaled;
+
+        OnHealthChanged?.Invoke(currentHealth, maxHealthScaled);
     }
+
     public void TakeDamage(int damage)
     {
         if (isDead) return;
         currentHealth -= damage;
-        currentHealth = Mathf.Clamp(currentHealth,0, enemyData.maxHealth);
-        OnHealthChanged?.Invoke(currentHealth, enemyData.maxHealth);
+        currentHealth = Mathf.Clamp(currentHealth,0, maxHealthScaled);
+        OnHealthChanged?.Invoke(currentHealth, maxHealthScaled);
         if(currentHealth <= 0)
         {
             Die();

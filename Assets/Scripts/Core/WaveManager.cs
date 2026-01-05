@@ -15,6 +15,7 @@ public class WaveManager : MonoBehaviour
     private int enemiesCount;
     private float timeAlive;
     private float timeBreak = 5f;
+    private float difficultyMultiplier = 1f;
 
     private void Start()
     {
@@ -71,9 +72,19 @@ public class WaveManager : MonoBehaviour
         if(enemiesCount <= 0)
         {
             Debug.Log("Wave cleaned");
+            if(waveCount %10 == 0)
+            {
+                difficultyMultiplier *= 1.5f;
+                Debug.Log("Difficulty increased: x" + difficultyMultiplier);
+            }
             Invoke("StartNextWave", timeBreak); // Relax 5 sec 
         }
     }
+    public float GetDifficultyMultiplier()
+    {
+        return difficultyMultiplier;
+    }
+
     public string GetFormattedTime()
     {
         int minutes = Mathf.FloorToInt(timeAlive / 60);
