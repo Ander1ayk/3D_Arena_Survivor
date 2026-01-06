@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Boba
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   maxHealth: 750
-  moveSpeed: 2
+  moveSpeed: 4.8
   damage: 22
   attackCooldown: 0.9
   manaReward: 50

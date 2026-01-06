@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bibo
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   maxHealth: 500
-  moveSpeed: 2.3
+  moveSpeed: 5.1
   damage: 20
   attackCooldown: 1
   manaReward: 40

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Beholder
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   maxHealth: 30
-  moveSpeed: 2.2
+  moveSpeed: 5
   damage: 10
   attackCooldown: 1.3
   manaReward: 8

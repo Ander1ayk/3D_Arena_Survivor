@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ChestMonster
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   maxHealth: 60
-  moveSpeed: 1.2
+  moveSpeed: 4
   damage: 14
   attackCooldown: 1.8
   manaReward: 12

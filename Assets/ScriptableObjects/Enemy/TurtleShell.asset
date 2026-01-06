@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TurtleShell
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   maxHealth: 45
-  moveSpeed: 0.8
+  moveSpeed: 3.6
   damage: 7
   attackCooldown: 2
   manaReward: 6
