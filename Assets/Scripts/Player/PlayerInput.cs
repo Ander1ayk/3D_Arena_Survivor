@@ -6,7 +6,7 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private PlayerStats playerStats;
     [SerializeField] private int amountHeal = 30;
     [Header("Keys")]
-    [SerializeField] private KeyCode healKey = KeyCode.Mouse0;
+    [SerializeField] private KeyCode healKey = KeyCode.Mouse1;
 
     private void Update()
     {

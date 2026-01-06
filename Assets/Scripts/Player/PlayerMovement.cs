@@ -11,7 +11,6 @@ public class PlayerMovement : MonoBehaviour
     private float horizontalInput;
     private float verticalInput;
     private float rotationVelocity;
-    private Vector3 moveDirection;
 
     private void Start()
     {
@@ -27,10 +26,6 @@ public class PlayerMovement : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
 
-        if (Input.GetKey(KeyCode.V))
-        {
-            playerStats.TakeDamage(30);
-        }
     }
     private void FixedUpdate()
     {

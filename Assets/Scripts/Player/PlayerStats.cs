@@ -39,16 +39,6 @@ public class PlayerStats : MonoBehaviour
         currentHealth = maxHealth;
         currentMana = maxMana;
     }
-    private void Update()
-    {
-        if(Time.time - lastHealTime > healRate)
-        {
-            if(Input.GetMouseButtonDown(0))
-            {
-                UseManaHeal(30);
-            }
-        }
-    }
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
