@@ -181,6 +181,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   enemyData: {fileID: 11400000, guid: ab639c638c9243b4f9e89b0b46073b3d, type: 2}
+  audioClipTakeDamage: {fileID: 8300000, guid: 49a1a7777f99af64c811b148d289b544, type: 3}
+  audioClipDeath: {fileID: 8300000, guid: 738361645ee320a499f54f36aaac953b, type: 3}
 --- !u!114 &4265679129837093252
 MonoBehaviour:
   m_ObjectHideFlags: 0

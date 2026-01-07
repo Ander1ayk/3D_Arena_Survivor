@@ -16,6 +16,10 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float damageMultiplier = 1.0f;
     [SerializeField] private float speedMultiplier = 1.0f;
     [SerializeField] private float fireRateMultiplier = 1.0f;
+    [Header("SFX")]
+    [SerializeField] private AudioClip audioClipTakeDamage;
+    [SerializeField] private AudioClip audioClipHeal;
+    [SerializeField] private AudioClip audioClipLowHp;
     [Header("Money")]
     private int coins;
 
@@ -39,12 +43,22 @@ public class PlayerStats : MonoBehaviour
         currentHealth = maxHealth;
         currentMana = maxMana;
     }
+    private void Update()
+    {
+        if(currentHealth <= maxHealth * 0.2f)
+        {
+            AudioManager.Instance.PlaySFX(audioClipLowHp, false, 1);
+        }
+    }
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
         Debug.Log("Player took " + damage + " damage. Current Health: " + currentHealth);
+
+        AudioManager.Instance.PlaySFX(audioClipTakeDamage, false, 0.9f);
+
         if (currentHealth <= 0) Die();    
     }
     public void UseManaHeal(int amount)
@@ -60,6 +74,8 @@ public class PlayerStats : MonoBehaviour
 
             currentMana -= amount;
             currentHealth += amount / 2;
+
+            AudioManager.Instance.PlaySFX(audioClipHeal, false, 0.9f);
 
             currentHealth = Mathf.Clamp(currentHealth, 0 , maxHealth);
             currentMana = Mathf.Clamp(currentMana, 0, maxMana);

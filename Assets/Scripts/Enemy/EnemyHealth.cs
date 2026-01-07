@@ -9,6 +9,10 @@ public class EnemyHealth : MonoBehaviour
     [Header("Death Settings")]
     private bool isDead = false;
 
+    [Header("Audio clips")]
+    [SerializeField] private AudioClip audioClipTakeDamage;
+    [SerializeField] private AudioClip audioClipDeath;
+
     private EnemyAnimator enemyAnimator;
     private WaveManager waveManager;
     private PlayerStats playerStats;
@@ -36,6 +40,9 @@ public class EnemyHealth : MonoBehaviour
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth,0, maxHealthScaled);
         OnHealthChanged?.Invoke(currentHealth, maxHealthScaled);
+
+        AudioManager.Instance.PlaySFX(audioClipTakeDamage, true, 0.8f);
+
         if(currentHealth <= 0)
         {
             Die();
@@ -63,6 +70,8 @@ public class EnemyHealth : MonoBehaviour
         {
             collider.enabled = false;
         }
+        AudioManager.Instance.PlaySFX(audioClipDeath, true, 0.7f);
+
         waveManager.EnemyDied();
         enemyAnimator.PlayDeathAnimation();
         Destroy(gameObject, enemyAnimator.GetDeathAnimationLength());
