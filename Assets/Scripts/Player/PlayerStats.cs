@@ -20,12 +20,9 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private AudioClip audioClipTakeDamage;
     [SerializeField] private AudioClip audioClipHeal;
     [SerializeField] private AudioClip audioClipLowHp;
-    [Header("Money")]
-    private int coins;
 
     public event Action<int, int> OnHealthChanged;
     public event Action<int, int> OnManaChanged;
-    public event Action<int> OnMoneyChanged;
 
     private float lastHealTime;
     private bool IsDead = false;
@@ -36,7 +33,6 @@ public class PlayerStats : MonoBehaviour
 
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
         OnManaChanged?.Invoke(currentMana, maxMana);
-        OnMoneyChanged?.Invoke(coins);
     }
     private void Awake()
     {
@@ -98,46 +94,15 @@ public class PlayerStats : MonoBehaviour
         OnManaChanged?.Invoke(currentMana, maxMana);
         Debug.Log($"Mana recovered: {amount}. Current mana {currentMana}");
     }
-    public void EarnMoney(int amount)
-    {
-        coins += amount;
-        OnMoneyChanged?.Invoke(coins);
-    }
-    public bool SpendMoney(int amount)
-    {
-        if(amount <= coins)
-        {
-            coins -= amount;
-            OnMoneyChanged?.Invoke(coins);
-            return true;
-        }
-        else
-        {
-            Debug.Log("Not enough money");
-            return false;
-        }
-    }
     private void Die()
     {
         IsDead = true;
         playerAnimator.PlayerDie();
     }
-    public bool GetPlayerIsDead()
-    {
-        return IsDead;
-    }
-    public float GetMoveSpeed()
-    {
-        return moveSpeed * speedMultiplier;
-    }
-    public float GetDamageMultiplier()
-    {
-        return damageMultiplier;
-    }
-    public float GetFireRateMultiplier()
-    {
-        return fireRateMultiplier;
-    }
+    public bool GetPlayerIsDead() => IsDead;
+    public float GetMoveSpeed() => moveSpeed * speedMultiplier;
+    public float GetDamageMultiplier() => damageMultiplier;
+    public float GetFireRateMultiplier() => fireRateMultiplier;
     public int GetCurrentHealth() => currentHealth;
     public int GetMaxHealth() => maxHealth;
 }

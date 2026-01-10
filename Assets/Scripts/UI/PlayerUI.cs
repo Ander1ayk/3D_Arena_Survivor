@@ -14,6 +14,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private Image manaBarFill;
     [SerializeField] private TextMeshProUGUI manaText;
     [SerializeField] private Gradient colorGradientMana;
+
     [Header("Coins")]
     [SerializeField] private TextMeshProUGUI coinText;
 
@@ -22,13 +23,20 @@ public class PlayerUI : MonoBehaviour
     {
         playerStats.OnHealthChanged += UpdateHealUI;
         playerStats.OnManaChanged += UpdateManaUI;
-        playerStats.OnMoneyChanged += UpdateCoinUI;
+        if(Wallet.Instance != null)
+        {
+            Wallet.Instance.OnMoneyChanged += UpdateCoinUI;
+            UpdateCoinUI(Wallet.Instance.GetCurrentCoins());
+        }
     }
     private void OnDisable()
     {
         playerStats.OnHealthChanged -= UpdateHealUI;
         playerStats.OnManaChanged -= UpdateManaUI;
-        playerStats.OnMoneyChanged -= UpdateCoinUI;
+        if (Wallet.Instance != null)
+        {
+            Wallet.Instance.OnMoneyChanged -= UpdateCoinUI;
+        }
     }
 
     private void UpdateHealUI(int current, int max)

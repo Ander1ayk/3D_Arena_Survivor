@@ -62,7 +62,10 @@ public class EnemyHealth : MonoBehaviour
         if (playerStats != null)
         {
             playerStats.RecoveryMana(enemyData.manaReward);
-            playerStats.EarnMoney(enemyData.coinReward);
+            if(Wallet.Instance != null)
+            {
+                Wallet.Instance.AddCoins(enemyData.coinReward);
+            }
         }
 
         Collider collider = GetComponent<Collider>();
