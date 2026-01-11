@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using UnityEditor.Overlays;
 using UnityEngine;
 
 public class ShopManager : MonoBehaviour
@@ -8,6 +10,25 @@ public class ShopManager : MonoBehaviour
     private List<SkinData> ownedSkins = new List<SkinData>();
     private SkinData currentSkin;
     public List<SkinData> GetAvailableSkins() => availableSkins;
+    private ShopSaveData shopSaveData;
+
+    public event Action OnSkinChanged;
+    private void Awake()
+    {
+        shopSaveData = SaveService.Load();
+        foreach(var skinId in shopSaveData.ownedSkins)
+        {
+            var skin = availableSkins.Find(s => s.skinId == skinId);
+            if(skin != null)
+            {
+                ownedSkins.Add(skin);
+            }
+        }
+        if (!string.IsNullOrEmpty(shopSaveData.selectedSkinId))
+        {
+            currentSkin = availableSkins.Find(s => s.skinId == shopSaveData.selectedSkinId);
+        }
+    }
     private bool CheckSkinIsBought(SkinData data)
     {
         if(ownedSkins.Contains(data))
@@ -33,6 +54,8 @@ public class ShopManager : MonoBehaviour
             if (Wallet.Instance.SpendCoins(data.price))
             {
                 ownedSkins.Add(data);
+                shopSaveData.ownedSkins.Add(data.skinId);
+                SaveService.SaveShop(shopSaveData);
                 Debug.Log("Skin purchased: " + data.skinName);
                 return true;
             }
@@ -45,17 +68,15 @@ public class ShopManager : MonoBehaviour
     }
     public void ChooseSkin(SkinData data)
     {
-        if (CheckSkinIsBought(data))
-        {
-            currentSkin = data;
-            FindAnyObjectByType<PlayerSkinController>().SetSkin(data);
-            SaveChoice(data);
-            Debug.Log("Skin chosen: " + data.skinName);
-        }
-        else
-        {
-            Debug.Log("Cannot choose skin, not owned: " + data.skinName);
-        }
+        if (!IsSkinOwned(data)) return;
+
+        currentSkin = data;
+        shopSaveData.selectedSkinId = data.skinId;
+        SaveService.SaveShop(shopSaveData);
+
+        FindAnyObjectByType<PlayerSkinController>().SetSkin(data);
+
+        OnSkinChanged?.Invoke();
     }
     private void SaveChoice(SkinData data)
     {
@@ -66,4 +87,9 @@ public class ShopManager : MonoBehaviour
     {
         return ownedSkins.Contains(data);
     }
+    public SkinData GetCurrentSkin()
+    {
+        return currentSkin;
+    }
+
 }

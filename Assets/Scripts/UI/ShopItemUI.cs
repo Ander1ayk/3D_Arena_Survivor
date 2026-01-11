@@ -10,6 +10,8 @@ public class ShopItemUI : MonoBehaviour
     [SerializeField] private Button actionButton;
     [SerializeField] private TextMeshProUGUI buttonText;
 
+    [SerializeField] private Image selectedFrame;
+
     private SkinData skinData;
     private ShopManager shopManager;
 
@@ -26,6 +28,23 @@ public class ShopItemUI : MonoBehaviour
 
         UpdateState();
     }
+    private void OnEnable()
+    {
+        Wallet.Instance.OnMoneyChanged += OnMoneyChanged;
+        shopManager.OnSkinChanged += UpdateState;
+    }
+
+    private void OnDisable()
+    {
+        Wallet.Instance.OnMoneyChanged -= OnMoneyChanged;
+        shopManager.OnSkinChanged -= UpdateState;
+    }
+
+    private void OnMoneyChanged(int money)
+    {
+        UpdateState();
+    }
+
     private void OnButtonClicked()
     {
         if (shopManager.IsSkinOwned(skinData))
@@ -42,13 +61,21 @@ public class ShopItemUI : MonoBehaviour
     }
     private void UpdateState()
     {
-        if (shopManager.IsSkinOwned(skinData))
+        bool isOwned = shopManager.IsSkinOwned(skinData);
+        bool isSelected = shopManager.GetCurrentSkin() == skinData; 
+        if (isOwned)
         {
-            buttonText.text = "Select";
+            buttonText.text = isSelected ? "Selected" : "Select";
+            actionButton.interactable = !isSelected;
         }
         else
         {
-            buttonText.text = "Buy: "+skinData.price;
+            buttonText.text = "Buy: " + skinData.price;
+            actionButton.interactable = Wallet.Instance.GetCurrentCoins() >= skinData.price;
+        }
+        if(selectedFrame != null)
+        {
+            selectedFrame.gameObject.SetActive(isSelected);
         }
     }
 }
