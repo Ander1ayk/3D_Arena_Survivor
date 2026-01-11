@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44b78a34f1765ed41b055202b7cc807c, type: 3}
+  m_Name: Wizard_Grey
+  m_EditorClassIdentifier: Assembly-CSharp::SkinData
+  skinId: second_skin
+  skinName: Wizard  Grey
+  skinPrefab: {fileID: 863547688964945179, guid: 1d93c1cd3c45f5a4cb3bbaf7db335afc, type: 3}
+  skinIcon: {fileID: 21300000, guid: 48d7988a5801d124da345e42859e3987, type: 3}
+  price: 100

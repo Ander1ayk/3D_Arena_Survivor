@@ -26,18 +26,42 @@ public class ShopItemUI : MonoBehaviour
         actionButton.onClick.RemoveAllListeners();
         actionButton.onClick.AddListener(OnButtonClicked);
 
+        Subscribe();
         UpdateState();
     }
-    private void OnEnable()
+    private void OnDestroy()
     {
-        Wallet.Instance.OnMoneyChanged += OnMoneyChanged;
-        shopManager.OnSkinChanged += UpdateState;
+        Unsubscribe();
+    }
+    //private void OnEnable()
+    //{
+    //    if (Wallet.Instance != null)
+    //        Wallet.Instance.OnMoneyChanged += OnMoneyChanged;
+    //    shopManager.OnSkinChanged += UpdateState;
+    //}
+
+    //private void OnDisable()
+    //{
+    //    if (Wallet.Instance != null)
+    //        Wallet.Instance.OnMoneyChanged -= OnMoneyChanged;
+    //    shopManager.OnSkinChanged -= UpdateState;
+    //}
+    public void Subscribe()
+    {
+        if (Wallet.Instance != null)
+            Wallet.Instance.OnMoneyChanged += OnMoneyChanged;
+
+        if (shopManager != null)
+            shopManager.OnSkinChanged += UpdateState;
     }
 
-    private void OnDisable()
+    public void Unsubscribe()
     {
-        Wallet.Instance.OnMoneyChanged -= OnMoneyChanged;
-        shopManager.OnSkinChanged -= UpdateState;
+        if (Wallet.Instance != null)
+            Wallet.Instance.OnMoneyChanged -= OnMoneyChanged;
+
+        if (shopManager != null)
+            shopManager.OnSkinChanged -= UpdateState;
     }
 
     private void OnMoneyChanged(int money)

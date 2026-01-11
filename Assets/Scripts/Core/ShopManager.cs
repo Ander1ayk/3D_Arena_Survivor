@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEditor.Overlays;
 using UnityEngine;
 
 public class ShopManager : MonoBehaviour
@@ -78,11 +77,11 @@ public class ShopManager : MonoBehaviour
 
         OnSkinChanged?.Invoke();
     }
-    private void SaveChoice(SkinData data)
-    {
-        PlayerPrefs.SetString("ChosenSkin", data.skinId);
-        Debug.Log("Saved chosen skin: " + currentSkin.skinName);
-    }
+    //private void SaveChoice(SkinData data)
+    //{
+    //    PlayerPrefs.SetString("ChosenSkin", data.skinId);
+    //    Debug.Log("Saved chosen skin: " + currentSkin.skinName);
+    //}
     public bool IsSkinOwned(SkinData data)
     {
         return ownedSkins.Contains(data);
