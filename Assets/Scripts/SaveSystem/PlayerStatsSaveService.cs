@@ -17,4 +17,11 @@ public static class PlayerStatsSaveService
         }
         return null;
     }
+    public static void DeletePlayerStats()
+    {
+        if (System.IO.File.Exists(Path))
+        {
+            System.IO.File.Delete(Path);
+        }
+    }
 }

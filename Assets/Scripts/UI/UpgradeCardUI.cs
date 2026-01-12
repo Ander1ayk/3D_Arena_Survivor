@@ -63,16 +63,23 @@ public class UpgradeCardUI : MonoBehaviour
 
         valueText.text = GetStatText();
         priceText.text = price.ToString();
+
+        upgradeButton.interactable =
+            Wallet.Instance != null &&
+            Wallet.Instance.GetCurrentCoins() >= price;
     }
     private void OnUpgradeClicked()
     {
         int price = GetUpgradePrice();
 
-        if (Wallet.Instance.SpendCoins(price))
-        {
-            playerStats.Upgrade(upgradeType);
-            UpdateUI();
-        }
+        if (Wallet.Instance == null)
+            return;
+
+        if (!Wallet.Instance.SpendCoins(price))
+            return;
+
+        playerStats.Upgrade(upgradeType);
+        UpdateUI();
     }
     private string GetStatText()
     {
@@ -86,5 +93,20 @@ public class UpgradeCardUI : MonoBehaviour
             _ => ""
         };
     }
+    private void OnEnable()
+    {
+        if (Wallet.Instance != null)
+            Wallet.Instance.OnMoneyChanged += OnMoneyChanged;
+    }
 
+    private void OnDisable()
+    {
+        if (Wallet.Instance != null)
+            Wallet.Instance.OnMoneyChanged -= OnMoneyChanged;
+    }
+
+    private void OnMoneyChanged(int money)
+    {
+        UpdateUI();
+    }
 }

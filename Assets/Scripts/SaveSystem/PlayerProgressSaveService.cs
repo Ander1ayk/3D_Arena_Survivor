@@ -19,4 +19,11 @@ public static class PlayerProgressSaveService
         }
         return null;
     }
+    public static void DeletePlayerProgress()
+    {
+        if (File.Exists(Path))
+        {
+            File.Delete(Path);
+        }
+    }
 }

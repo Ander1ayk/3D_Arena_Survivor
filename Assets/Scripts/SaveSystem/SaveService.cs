@@ -19,4 +19,11 @@ public class SaveService
         string json = File.ReadAllText(Path);
         return JsonUtility.FromJson<ShopSaveData>(json);
     }
+    public static void DeleteShopData()
+    {
+        if (File.Exists(Path))
+        {
+            File.Delete(Path);
+        }
+    }
 }

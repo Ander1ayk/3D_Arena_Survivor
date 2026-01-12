@@ -11,7 +11,7 @@ public class PlayerStats : MonoBehaviour
     private int currentMana;
     private float healRate = 1f;
     [Header("Movement")]
-    [SerializeField] private float moveSpeed = 2.2f;
+    [SerializeField] private float moveSpeed = 5f;
     [Header("Multiplier")]
     [SerializeField] private float damageMultiplier = 1.0f;
     [SerializeField] private float fireRateMultiplier = 1.0f;
@@ -56,7 +56,7 @@ public class PlayerStats : MonoBehaviour
     }
     private void Update()
     {
-        if(currentHealth <= maxHealth * 0.2f)
+        if(currentHealth <= maxHealth * 0.2f && currentHealth > 0)
         {
             AudioManager.Instance.PlaySFX(audioClipLowHp, false, 1);
         }
@@ -150,7 +150,7 @@ public class PlayerStats : MonoBehaviour
     public void IncreaseSpeed()
     {
         speedLevel++;
-        moveSpeed = Mathf.Min(5f, moveSpeed + 0.2f);
+        moveSpeed = Mathf.Min(10f, moveSpeed + 0.2f);
         SaveProgress();
         SaveStats();
     }

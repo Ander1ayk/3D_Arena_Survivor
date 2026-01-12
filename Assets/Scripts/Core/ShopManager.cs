@@ -77,11 +77,6 @@ public class ShopManager : MonoBehaviour
 
         OnSkinChanged?.Invoke();
     }
-    //private void SaveChoice(SkinData data)
-    //{
-    //    PlayerPrefs.SetString("ChosenSkin", data.skinId);
-    //    Debug.Log("Saved chosen skin: " + currentSkin.skinName);
-    //}
     public bool IsSkinOwned(SkinData data)
     {
         return ownedSkins.Contains(data);

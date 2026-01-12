@@ -48,4 +48,12 @@ public class Wallet : MonoBehaviour
         }
     }
     public int GetCurrentCoins() => coins;
+    public void ResetMoney()
+    {
+        coins = 0;
+        OnMoneyChanged?.Invoke(coins);
+        PlayerPrefs.SetInt("TotalMoney", coins); // Save updated money
+        PlayerPrefs.Save();
+        Debug.Log("Money reset. Total Coins: " + coins);
+    }
 }
