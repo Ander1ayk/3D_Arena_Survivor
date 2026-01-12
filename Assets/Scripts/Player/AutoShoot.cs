@@ -35,8 +35,8 @@ public class AutoShoot : MonoBehaviour
 
             Vector3 direction = (targetPoint - firePoint.position).normalized;
             Shoot(direction);
-            int fireRateFull = Mathf.RoundToInt(fireRate * playerStats.GetFireRateMultiplier());
-            nextFireTime = Time.time + 1f / fireRateFull;
+            int actualFireRate = Mathf.RoundToInt(fireRate / playerStats.GetFireRateMultiplier());
+            nextFireTime = Time.time + 1f / actualFireRate;
         }
     }
     private void Shoot(Vector3 shootDirection)

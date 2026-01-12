@@ -33,19 +33,6 @@ public class ShopItemUI : MonoBehaviour
     {
         Unsubscribe();
     }
-    //private void OnEnable()
-    //{
-    //    if (Wallet.Instance != null)
-    //        Wallet.Instance.OnMoneyChanged += OnMoneyChanged;
-    //    shopManager.OnSkinChanged += UpdateState;
-    //}
-
-    //private void OnDisable()
-    //{
-    //    if (Wallet.Instance != null)
-    //        Wallet.Instance.OnMoneyChanged -= OnMoneyChanged;
-    //    shopManager.OnSkinChanged -= UpdateState;
-    //}
     public void Subscribe()
     {
         if (Wallet.Instance != null)

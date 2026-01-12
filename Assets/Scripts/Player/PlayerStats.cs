@@ -14,8 +14,13 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float moveSpeed = 2.2f;
     [Header("Multiplier")]
     [SerializeField] private float damageMultiplier = 1.0f;
-    [SerializeField] private float speedMultiplier = 1.0f;
     [SerializeField] private float fireRateMultiplier = 1.0f;
+    [Header("Upgrade Levels")]
+    [SerializeField] private int healthLevel = 0;
+    [SerializeField] private int manaLevel = 0;
+    [SerializeField] private int damageLevel = 0;
+    [SerializeField] private int speedLevel = 0;
+    [SerializeField] private int fireRateLevel = 0;
     [Header("SFX")]
     [SerializeField] private AudioClip audioClipTakeDamage;
     [SerializeField] private AudioClip audioClipHeal;
@@ -36,6 +41,16 @@ public class PlayerStats : MonoBehaviour
     }
     private void Awake()
     {
+        LoadStats();
+        var data = PlayerProgressSaveService.LoadPlayerProgress();
+        if(data != null)
+        {
+            maxHealth = data.maxHealth;
+            maxMana = data.maxMana;
+            moveSpeed = data.moveSpeed;
+            damageMultiplier = data.damageMultiplier;
+            fireRateMultiplier = data.fireRateMultiplier;
+        }
         currentHealth = maxHealth;
         currentMana = maxMana;
     }
@@ -99,10 +114,130 @@ public class PlayerStats : MonoBehaviour
         IsDead = true;
         playerAnimator.PlayerDie();
     }
+
+    public void IncreaseMaxHealth()
+    {
+        healthLevel++;
+        maxHealth += 10;
+        SaveProgress();
+        SaveStats();
+    }
+    public int GetHealthLevel() => healthLevel;
+    public void IncreaseMaxMana()
+    {
+        manaLevel++;
+        maxMana += 10;
+        SaveProgress();
+        SaveStats();
+    }
+    public int GetManaLevel() => manaLevel;
+    public void IncreaseDamageMultiplier()
+    {
+        damageLevel++;
+        damageMultiplier *= 1.15f;
+        SaveProgress();
+        SaveStats();
+    }
+    public int GetDamageLevel() => damageLevel;
+    public void IncreaseFireRateMultiplier()
+    {
+        fireRateLevel++;
+        fireRateMultiplier += 0.1f;
+        SaveProgress();
+        SaveStats();
+    }
+    public int GetFireRateLevel() => fireRateLevel;
+    public void IncreaseSpeed()
+    {
+        speedLevel++;
+        moveSpeed = Mathf.Min(5f, moveSpeed + 0.2f);
+        SaveProgress();
+        SaveStats();
+    }
+    public int GetSpeedLevel() => speedLevel;
     public bool GetPlayerIsDead() => IsDead;
-    public float GetMoveSpeed() => moveSpeed * speedMultiplier;
+    public float GetMoveSpeed() => moveSpeed;
     public float GetDamageMultiplier() => damageMultiplier;
     public float GetFireRateMultiplier() => fireRateMultiplier;
     public int GetCurrentHealth() => currentHealth;
     public int GetMaxHealth() => maxHealth;
+    public int GetMaxMana() => maxMana;
+    public PlayerProgressData GetProgressData()
+    {
+        return new PlayerProgressData
+        {
+            maxHealth = maxHealth,
+            maxMana = maxMana,
+            moveSpeed = moveSpeed,
+            damageMultiplier = damageMultiplier,
+            fireRateMultiplier = fireRateMultiplier
+        };
+    }
+    public void SaveProgress()
+    {
+        PlayerProgressSaveService.SavePlayerProgress(GetProgressData());
+    }
+    private void LoadStats()
+    {
+        PlayerStatsSaveData data = PlayerStatsSaveService.LoadPlayerStats();
+
+        if(data == null) return;
+
+        healthLevel = data.healthLevel;
+        manaLevel = data.manaLevel;
+        damageLevel = data.damageLevel;
+        speedLevel = data.speedLevel;
+        fireRateLevel = data.fireRateLevel;
+
+        maxHealth += healthLevel * 10;
+        maxMana += manaLevel * 10;
+        damageMultiplier = 1f + damageLevel * 0.15f;
+        moveSpeed = 2.2f + speedLevel * 0.2f;
+    }
+    private void SaveStats()
+    {
+        PlayerStatsSaveData data = new PlayerStatsSaveData
+        {
+            healthLevel = healthLevel,
+            manaLevel = manaLevel,
+            damageLevel = damageLevel,
+            speedLevel = speedLevel,
+            fireRateLevel = fireRateLevel
+        };
+        PlayerStatsSaveService.SavePlayerStats(data);
+    }
+    public void Upgrade(UpgradeType type)
+    {
+        switch (type)
+        {
+            case UpgradeType.Health:
+                IncreaseMaxHealth();
+                break;
+            case UpgradeType.Mana:
+                IncreaseMaxMana();
+                break;
+            case UpgradeType.Damage:
+                IncreaseDamageMultiplier();
+                break;
+            case UpgradeType.Speed:
+                IncreaseSpeed();
+                break;
+            case UpgradeType.FireRate:
+                IncreaseFireRateMultiplier();
+                break;
+        }
+    }
+    public int GetUpgradeLevel(UpgradeType type)
+    {
+        return type switch
+        {
+            UpgradeType.Health => healthLevel,
+            UpgradeType.Mana => manaLevel,
+            UpgradeType.Damage => damageLevel,
+            UpgradeType.Speed => speedLevel,
+            UpgradeType.FireRate => fireRateLevel,
+            _ => 0
+        };
+    }
+
 }
