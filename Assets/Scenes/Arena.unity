@@ -8493,8 +8493,12 @@ MonoBehaviour:
   maxMana: 60
   moveSpeed: 5
   damageMultiplier: 1
-  speedMultiplier: 1
   fireRateMultiplier: 1
+  healthLevel: 0
+  manaLevel: 0
+  damageLevel: 0
+  speedLevel: 0
+  fireRateLevel: 0
   audioClipTakeDamage: {fileID: 8300000, guid: ce0e58db5d5c2cb4ca33f3146758957f, type: 3}
   audioClipHeal: {fileID: 8300000, guid: 9d25262a70616ad428750abd3d3c6fef, type: 3}
   audioClipLowHp: {fileID: 8300000, guid: 8b31d478bbc5b554eb93c0abf5fc7f82, type: 3}
