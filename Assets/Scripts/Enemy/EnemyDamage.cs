@@ -20,25 +20,34 @@ public class EnemyDamage : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if(enemyAnimator.GetAttackAnimationLength() > enemyData.attackCooldown)
+        if(!other.CompareTag("Player"))
         {
-            cooldown = enemyAnimator.GetAttackAnimationLength();
+            return;
+        }
+        PlayerStats player = other.gameObject.GetComponent<PlayerStats>();
+        if(player == null)
+        {
+            return;
+        }
+        if (player.GetPlayerIsDead())
+        {
+            return;
         }
         else
         {
-            cooldown = enemyData.attackCooldown;
-        }
-        if (Time.time - lastAttackTime > cooldown)
-        {
-            if (other.gameObject.CompareTag("Player"))
+            if (enemyAnimator.GetAttackAnimationLength() > enemyData.attackCooldown)
             {
-                PlayerStats player = other.gameObject.GetComponent<PlayerStats>();
-                if (player != null)
-                {
-                    player.TakeDamage(scaledDamage);
-                    lastAttackTime = Time.time;
-                    enemyAnimator.PlayAttackAnimation();
-                }
+                cooldown = enemyAnimator.GetAttackAnimationLength();
+            }
+            else
+            {
+                cooldown = enemyData.attackCooldown;
+            }
+            if (Time.time - lastAttackTime > cooldown)
+            {
+                player.TakeDamage(scaledDamage);
+                lastAttackTime = Time.time;
+                enemyAnimator.PlayAttackAnimation();
             }
         }
     }

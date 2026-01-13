@@ -58,7 +58,7 @@ public class PlayerStats : MonoBehaviour
     {
         if(currentHealth <= maxHealth * 0.2f && currentHealth > 0)
         {
-            AudioManager.Instance.PlaySFX(audioClipLowHp, false, 1);
+            AudioManager.Instance.PlaySFX(audioClipLowHp, false, 0.9f);
         }
     }
     public void TakeDamage(int damage)
