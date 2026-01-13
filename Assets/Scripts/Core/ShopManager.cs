@@ -27,6 +27,13 @@ public class ShopManager : MonoBehaviour
         {
             currentSkin = availableSkins.Find(s => s.skinId == shopSaveData.selectedSkinId);
         }
+        if(currentSkin == null)
+        {
+            if(availableSkins.Count > 0)
+            {
+                currentSkin = availableSkins[0];
+            }
+        }
     }
     private bool CheckSkinIsBought(SkinData data)
     {
@@ -71,6 +78,8 @@ public class ShopManager : MonoBehaviour
 
         currentSkin = data;
         shopSaveData.selectedSkinId = data.skinId;
+        PlayerPrefs.SetString("SelectedSkinId", data.skinId);
+        PlayerPrefs.Save();
         SaveService.SaveShop(shopSaveData);
 
         FindAnyObjectByType<PlayerSkinController>().SetSkin(data);

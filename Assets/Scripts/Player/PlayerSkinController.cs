@@ -5,10 +5,13 @@ public class PlayerSkinController : MonoBehaviour
     [SerializeField] private Transform skinHolder;
     private GameObject currentSkinInstance;
 
+    private PlayerAnimator playerAnimator;
     private void Start()
     {
+        playerAnimator = GetComponent<PlayerAnimator>();
+
         var shop = FindObjectOfType<ShopManager>();
-        if(shop != null)
+        if (shop != null)
         {
             var skin = shop.GetCurrentSkin();
             if (skin != null)
@@ -17,6 +20,7 @@ public class PlayerSkinController : MonoBehaviour
             }
         }
     }
+
     public void SetSkin(SkinData skinData)
     {
         if(currentSkinInstance != null)
@@ -28,5 +32,10 @@ public class PlayerSkinController : MonoBehaviour
         currentSkinInstance.transform.localPosition = Vector3.zero;
         currentSkinInstance.transform.localRotation = Quaternion.identity;
         currentSkinInstance.transform.localScale = Vector3.one;
+
+        if(playerAnimator != null)
+        {
+            playerAnimator.InitializeAnimator();
+        }
     }
 }
