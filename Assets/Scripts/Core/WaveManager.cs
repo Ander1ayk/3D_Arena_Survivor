@@ -10,6 +10,9 @@ public class WaveManager : MonoBehaviour
     [Header("Enemies")]
     [SerializeField] private GameObject[] enemies;
 
+    [Header("Wave Text")]
+    [SerializeField] private TMPro.TextMeshProUGUI waveText;
+
     private int waveCount = 0;
     private int allEnemiesKilled;
     private int enemiesCount;
@@ -24,6 +27,10 @@ public class WaveManager : MonoBehaviour
     private void Update()
     {
         timeAlive += Time.deltaTime;
+        if (waveText != null)
+        {
+            waveText.text = "Wave: " + waveCount;
+        }
     }
     private Transform SpawnPos()
     {
@@ -95,4 +102,5 @@ public class WaveManager : MonoBehaviour
     {
         return allEnemiesKilled.ToString();
     }
+    
 }
